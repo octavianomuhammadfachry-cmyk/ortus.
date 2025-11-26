@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ortuseight - Elegant Luxury Footwear</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* =========================================================================
+           COLORS & TYPOGRAPHY
+           ========================================================================= */
+        :root {
+            /* Colors */
+            --color-primary: #FF4E50;
+            --color-secondary: #FC913A;
+            --color-accent: #F9D423;
+            --color-background: #FFFFFF;
+            --color-card: #f9f9f9;
+            --color-text-primary: #1a202c;
+            --color-text-secondary: #4a5568;
+            --color-gold-accent: #F9D423; /* Using accent for "gold" look */
+
+            /* Dark Mode Colors */
+            --dark-background: #1a202c;
+            --dark-card: #2d3748;
+            --dark-text-primary: #764c4ca4;
+            --dark-text-secondary: #a0aec0;
+
+            /* Typography */
+            --font-family-primary: 'Poppins', sans-serif;
+            --font-weight-light: 300;
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+
+            /* Spacing */
+            --section-padding: 5rem 0;
+            --container-max-width: 1200px;
+            --spacing-base: 0.25rem;
+
+            /* Effects */
+            --shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --border-radius-md: 0.5rem;
+            --border-radius-lg: 0.75rem;
+            --border-radius-xl: 1rem;
+            --border-radius-full: 9999px;
+
+            /* Animation */
+            --ease-complex: cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-duration: 0.5s;
+        }
+
+        /* =========================================================================
+           DARK MODE STYLES
+           ========================================================================= */
+        body.dark-mode {
+            background-color: var(--dark-background);
+            color: var(--dark-text-primary);
+            transition: background-color var(--transition-duration) var(--ease-complex), color var(--transition-duration) var(--ease-complex);
+        }
+
+        body.dark-mode .card,
+        body.dark-mode .nav-menu a:hover,
+        body.dark-mode .nav-menu a.active,
+        body.dark-mode .dark-mode-toggle .toggle-icon,
+        body.dark-mode #particles-js,
+        body.dark-mode .blog-card {
+            background-color: var(--dark-card);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            color: var(--dark-text-primary);
+        }
+
+        body.dark-mode .text-primary { color: var(--dark-text-primary); }
+        body.dark-mode .text-secondary { color: var(--dark-text-secondary); }
+        body.dark-mode input, body.dark-mode textarea {
+            background-color: var(--dark-background);
+            border-color: var(--dark-text-secondary);
+            color: var(--dark-text-primary);
+        }
+
+        body.dark-mode .testimonial-card::before {
+             background-color: var(--dark-card);
+        }
+        
+        /* =========================================================================
+           GLOBAL STYLES & RESETS
+           ========================================================================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-family-primary);
+            font-weight: var(--font-weight-normal);
+            color: var(--color-text-primary);
+            background-color: var(--color-background);
+            line-height: 1.6;
+            transition: background-color var(--transition-duration) var(--ease-complex), color var(--transition-duration) var(--ease-complex);
+        }
+
+        section {
+            padding: var(--section-padding);
+            transition: padding var(--transition-duration) var(--ease-complex);
+            position: relative;
+            overflow: hidden; /* To contain particles and parallax */
+        }
+
+        .container {
+            max-width: var(--container-max-width);
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: var(--font-weight-bold);
+            margin-bottom: 1rem;
+            color: var(--color-text-primary);
+            line-height: 1.2;
+        }
+
+        h2 { font-size: 2.25rem; } /* 4xl */
+        h3 { font-size: 1.875rem; } /* 3xl */
+        h4 { font-size: 1.5rem; } /* 2xl */
+
+        p { margin-bottom: 1rem; }
+
+        .text-primary { color: var(--color-text-primary); }
+        .text-secondary { color: var(--color-text-secondary); }
+        .text-accent { color: var(--color-accent); }
+        .text-gradient {
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary), var(--color-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        
+        /* Utility */
+        .flex-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        /* =========================================================================
+           BUTTONS & CARDS
+           ========================================================================= */
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            border-radius: var(--border-radius-full);
+            text-decoration: none;
+            font-weight: var(--font-weight-semibold);
+            cursor: pointer;
+            transition: all 0.3s var(--ease-complex);
+            border: none;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+            color: var(--color-background);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: var(--shadow-xl);
+            opacity: 0.9;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--color-primary);
+            border: 2px solid var(--color-primary);
+            padding: 0.75rem 1.5rem;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--color-primary);
+            color: var(--color-background);
+            transform: scale(1.05);
+        }
+
+        .card {
+            background-color: var(--color-card);
+            border-radius: var(--border-radius-xl);
+            padding: 2rem;
+            box-shadow: var(--shadow-medium);
+            text-align: center;
+            transition: all 0.4s var(--ease-complex);
+            position: relative;
+        }
+
+        .card:hover {
+            transform: scale(1.03) translateY(-5px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* =========================================================================
+           HEADER & DARK MODE TOGGLE
+           ========================================================================= */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem 0;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: var(--shadow-small);
+            transition: background-color var(--transition-duration) var(--ease-complex);
+        }
+        body.dark-mode header {
+            background-color: rgba(26, 32, 44, 0.95);
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: var(--container-max-width);
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: var(--font-weight-bold);
+            text-decoration: none;
+            color: var(--color-text-primary);
+            transition: color var(--transition-duration) var(--ease-complex);
+        }
+        body.dark-mode .logo { color: var(--dark-text-primary); }
+        .logo span {
+            color: var(--color-primary);
+        }
+
+        .nav-menu a {
+            margin-left: 1.5rem;
+            text-decoration: none;
+            color: var(--color-text-secondary);
+            font-weight: var(--font-weight-medium);
+            transition: color 0.3s, transform 0.3s;
+            position: relative;
+        }
+
+        .nav-menu a:hover, .nav-menu a.active {
+            color: var(--color-primary);
+            transform: translateY(-2px);
+        }
+        .nav-menu a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--color-primary);
+            transform: scaleX(1);
+            transition: transform 0.3s var(--ease-complex);
+        }
+
+        .dark-mode-toggle {
+            cursor: pointer;
+            margin-left: 1.5rem;
+            display: inline-block;
+            vertical-align: middle;
+            background: none;
+            border: none;
+            padding: 0;
+            transition: transform 0.3s;
+        }
+        .dark-mode-toggle:hover {
+            transform: scale(1.1);
+        }
+        .toggle-icon {
+            width: 24px;
+            height: 24px;
+            fill: var(--color-text-primary);
+            transition: fill 0.3s var(--ease-complex);
+        }
+        body.dark-mode .toggle-icon { fill: var(--dark-text-primary); }
+
+        /* =========================================================================
+           KEYFRAMES & ANIMATIONS
+           ========================================================================= */
+        @keyframes floating {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(0, 10px); }
+            100% { transform: translate(0, 0); }
+        }
+
+        @keyframes scroll-down {
+            0% { transform: translateY(-5px); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(5px); opacity: 0; }
+        }
+
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Scroll Reveal Utility */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s var(--ease-complex), transform 1s var(--ease-complex);
+        }
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .scroll-reveal.stagger-1 { transition-delay: 0.1s; }
+        .scroll-reveal.stagger-2 { transition-delay: 0.2s; }
+        .scroll-reveal.stagger-3 { transition-delay: 0.3s; }
+        .scroll-reveal.stagger-4 { transition-delay: 0.4s; }
+        
+        /* Parallax Background (Example on Testimonials) */
+        .parallax-bg {
+            background-image: url('https://via.placeholder.com/1920x800.png?text=Parallax+Background'); /* Placeholder */
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1; /* Subtle */
+        }
+
+        /* =========================================================================
+           SPECIFIC SECTION STYLES
+           ========================================================================= */
+
+        /* --- Hero Section --- */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: left;
+            padding-top: 5rem;
+            position: relative;
+            background: linear-gradient(135deg, var(--color-background), #ffeaea); /* Subtle default gradient */
+            background-size: 200% 200%;
+            animation: gradient-shift 10s ease infinite;
+        }
+
+        #hero .hero-content {
+            z-index: 10;
+        }
+
+        #hero h1 {
+            font-size: 3rem;
+            font-weight: var(--font-weight-bold);
+            margin-bottom: 1.5rem;
+        }
+
+        #hero .hero-image {
+            width: 90%;
+            max-width: 500px;
+            margin: 2rem auto 0;
+            position: relative;
+        }
+
+        #hero .hero-image img {
+            width: 100%;
+            height: auto;
+            border-radius: var(--border-radius-xl);
+            box-shadow: var(--shadow-xl);
+            animation: floating 4s ease-in-out infinite;
+        }
+        
+        #hero .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--color-text-secondary);
+            font-size: 0.875rem;
+            opacity: 0.7;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        #hero .scroll-indicator .arrow {
+            width: 24px;
+            height: 24px;
+            animation: scroll-down 1.5s infinite;
+        }
+
+        /* --- About Section --- */
+        #about .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+            text-align: center;
+        }
+        #about .stat-card {
+            border-bottom: 4px solid var(--color-primary);
+            transition: all 0.3s var(--ease-complex);
+        }
+        #about .stat-card:hover {
+            transform: translateY(-5px);
+            border-bottom: 4px solid var(--color-accent);
+        }
+        #about .stat-card .number {
+            font-size: 2.25rem;
+            font-weight: var(--font-weight-bold);
+            color: var(--color-primary);
+        }
+        
+        /* --- Services/Products Section --- */
+        #services .service-card {
+            padding: 2.5rem 2rem;
+            border: 2px solid transparent;
+            background-image: linear-gradient(var(--color-card), var(--color-card)), linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+            transition: all 0.4s var(--ease-complex);
+            overflow: hidden;
+        }
+        body.dark-mode #services .service-card {
+             background-image: linear-gradient(var(--dark-card), var(--dark-card)), linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+        }
+
+        #services .service-card:hover {
+            transform: scale(1.05) rotate(1deg);
+            background-image: linear-gradient(var(--color-card), var(--color-card)), linear-gradient(45deg, var(--color-secondary), var(--color-accent));
+        }
+        body.dark-mode #services .service-card:hover {
+            background-image: linear-gradient(var(--dark-card), var(--dark-card)), linear-gradient(45deg, var(--color-secondary), var(--color-accent));
+        }
+
+        #services .icon {
+            font-size: 3rem;
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+        }
+
+        /* --- Portfolio/Projects Section --- */
+        #portfolio .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        #portfolio .portfolio-item {
+            position: relative;
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-medium);
+            cursor: pointer;
+        }
+        #portfolio .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s var(--ease-complex);
+            display: block;
+        }
+        #portfolio .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+        #portfolio .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 78, 80, 0.7); /* Primary color overlay */
+            opacity: 0;
+            transition: opacity 0.4s var(--ease-complex);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--color-background);
+            font-weight: var(--font-weight-medium);
+        }
+        #portfolio .portfolio-item:hover .overlay {
+            opacity: 1;
+        }
+
+        /* --- Testimonials Section --- */
+        #testimonials {
+            padding: var(--section-padding);
+            position: relative;
+            z-index: 1;
+        }
+        #testimonials .testimonial-wrapper {
+            max-width: 800px;
+            margin: 3rem auto 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-card {
+            background-color: var(--color-card);
+            padding: 3rem;
+            border-radius: var(--border-radius-xl);
+            box-shadow: var(--shadow-large);
+            text-align: center;
+            transition: opacity 0.6s var(--ease-complex);
+            position: relative;
+            z-index: 2;
+        }
+        .testimonial-card p {
+            font-style: italic;
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+            color: var(--color-text-primary);
+        }
+        .client-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+        .client-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--border-radius-full);
+            background-color: var(--color-secondary);
+            overflow: hidden;
+        }
+        .client-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* --- Team Section --- */
+        #team .team-card {
+            overflow: hidden;
+            text-align: center;
+            position: relative;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        #team .team-card:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+        .card-inner {
+            transition: transform 0.6s var(--ease-complex);
+            transform-style: preserve-3d;
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: var(--border-radius-xl);
+            padding: 2rem;
+            box-shadow: var(--shadow-medium);
+            background-color: var(--color-card);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .card-back {
+            transform: rotateY(180deg);
+            background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+            color: var(--color-background);
+        }
+        .team-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: var(--border-radius-full);
+            background-color: var(--color-secondary);
+            margin-bottom: 1rem;
+            overflow: hidden;
+            border: 3px solid var(--color-accent);
+        }
+        .social-icons a {
+            color: var(--color-text-secondary);
+            margin: 0 0.5rem;
+            font-size: 1.25rem;
+            transition: color 0.3s;
+        }
+        .social-icons a:hover {
+            color: var(--color-primary);
+            transform: scale(1.1);
+        }
+
+        /* --- Contact Section --- */
+        #contact .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+        #contact input, #contact textarea {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--color-text-secondary);
+            border-radius: var(--border-radius-md);
+            font-family: var(--font-family-primary);
+            background-color: var(--color-background);
+            color: var(--color-text-primary);
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        #contact input:focus, #contact textarea:focus {
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 2px rgba(255, 78, 80, 0.2);
+            outline: none;
+        }
+        #contact .input-group {
+            position: relative;
+        }
+        #contact .floating-label {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            pointer-events: none;
+            transition: 0.2s ease-out;
+            color: var(--color-text-secondary);
+        }
+        #contact input:focus ~ .floating-label,
+        #contact input:not(:placeholder-shown) ~ .floating-label,
+        #contact textarea:focus ~ .floating-label,
+        #contact textarea:not(:placeholder-shown) ~ .floating-label {
+            top: -0.75rem;
+            left: 0.5rem;
+            font-size: 0.75rem;
+            background-color: var(--color-background);
+            padding: 0 0.5rem;
+            color: var(--color-primary);
+        }
+        body.dark-mode #contact input:focus ~ .floating-label,
+        body.dark-mode #contact input:not(:placeholder-shown) ~ .floating-label,
+        body.dark-mode #contact textarea:focus ~ .floating-label,
+        body.dark-mode #contact textarea:not(:placeholder-shown) ~ .floating-label {
+            background-color: var(--dark-background);
+        }
+        #contact .error-message {
+            color: var(--color-primary);
+            font-size: 0.875rem;
+            margin-top: -1rem;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        #contact .error-message.show {
+            opacity: 1;
+        }
+
+        /* --- Blog Section --- */
+        #blog .blog-card {
+            text-align: left;
+            padding: 0;
+            overflow: hidden;
+            background-color: var(--color-card);
+        }
+        #blog .blog-card .img-container {
+            overflow: hidden;
+        }
+        #blog .blog-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s var(--ease-complex);
+        }
+        #blog .blog-card:hover img {
+            transform: scale(1.05);
+        }
+        #blog .blog-content {
+            padding: 1.5rem;
+        }
+        #blog .blog-meta {
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 0.5rem;
+        }
+        #blog .blog-content h4 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        /* --- Footer Section --- */
+        #footer {
+            background-color: var(--color-text-primary);
+            color: var(--color-background);
+            padding: 3rem 0 1rem 0;
+            position: relative;
+            transition: background-color var(--transition-duration) var(--ease-complex);
+        }
+        body.dark-mode #footer {
+            background-color: var(--dark-card);
+        }
+        #footer a {
+            color: var(--color-background);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        #footer a:hover {
+            color: var(--color-primary);
+        }
+        #footer .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        #footer .social-icons-footer a {
+            margin-right: 1rem;
+            font-size: 1.5rem;
+            transition: transform 0.3s, color 0.3s;
+            display: inline-block;
+        }
+        #footer .social-icons-footer a:hover {
+            transform: translateY(-3px) scale(1.1);
+            color: var(--color-accent);
+        }
+        #footer .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1rem;
+            text-align: center;
+            font-size: 0.875rem;
+            color: var(--dark-text-secondary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h2 { font-size: 1.875rem; }
+            #hero h1 { font-size: 2.5rem; }
+            #hero .hero-image { order: -1; margin-bottom: 2rem; }
+            #contact .contact-grid { grid-template-columns: 1fr; }
+            .nav-menu { display: none; } /* Simplified mobile nav for inline demo */
+        }
+    </style>
+</head>
+<body id="body">
+    <script>
+        // Simple icons/avatars to avoid external font-awesome
+        const icons = {
+            shoe: "👟",
+            medal: "🏅",
+            star: "⭐",
+            award: "🏆",
+            team: "👥",
+            mail: "📧",
+            phone: "📞",
+            map: "📍",
+            facebook: "📘",
+            twitter: "🐦",
+            instagram: "📸",
+            linkedin: "🔗",
+            blog: "📰",
+            user: "👤"
+        };
+    </script>
+    
+    <header>
+        <div class="nav-container">
+            <a href="#hero" class="logo">ortuseight<span>.</span></a>
+            <nav class="nav-menu">
+                <a href="#hero" class="nav-link active">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#services" class="nav-link">Products</a>
+                <a href="#portfolio" class="nav-link">Gallery</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+            <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle Dark Mode">
+                <svg class="toggle-icon" viewBox="0 0 24 24" id="mode-icon">
+                    <path fill="currentColor" d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zm4.814 1.765a.75.75 0 011.06 0l1.59 1.59a.75.75 0 11-1.06 1.06L15.754 5.074a.75.75 0 010-1.06zm3.371 6.985a.75.75 0 01.75.75h2.25a.75.75 0 010 1.5h-2.25a.75.75 0 01-.75-.75v-1.5zm-3.371 4.814a.75.75 0 010 1.06l-1.59 1.59a.75.75 0 11-1.06-1.06l1.59-1.59a.75.75 0 011.06 0zM12 18.75a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0v-2.25a.75.75 0 01.75-.75zm-4.814-1.765a.75.75 0 01-1.06 0l-1.59-1.59a.75.75 0 111.06-1.06l1.59 1.59a.75.75 0 010 1.06zM3.75 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H4.5a.75.75 0 01-.75-.75zm3.371-4.814a.75.75 0 010-1.06l1.59-1.59a.75.75 0 111.06 1.06L8.181 7.235a.75.75 0 01-1.06 0zM12 6.75a5.25 5.25 0 100 10.5 5.25 5.25 0 000-10.5z"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <section id="hero" class="flex-center">
+        <div id="particles-js" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;"></div>
+        <div class="container" style="display: grid; grid-template-columns: 1fr 1fr; align-items: center;">
+            <div class="hero-content scroll-reveal">
+                <h1 class="text-primary">Langkah Awal Kemewahan & Performa <span class="text-gradient">Tertinggi</span></h1>
+                <p class="text-secondary" style="font-size: 1.25rem;">Ortuseight mendefinisikan ulang sepatu, memadukan desain elegan dengan teknologi performa revolusioner. Rasakan bedanya.</p>
+                <div style="margin-top: 2rem;">
+                    <a href="#services" class="btn btn-primary">Lihat Koleksi Kami</a>
+                </div>
+            </div>
+            <div class="hero-image scroll-reveal stagger-2">
+                <img src="premium.png" alt="Sepatu Ortuseight Premium">
+            </div>
+        </div>
+        <a href="#about" class="scroll-indicator">
+            Scroll Down
+            <div class="arrow">↓</div>
+        </a>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <h2 class="text-center text-gradient scroll-reveal">Tentang ortuseight</h2>
+            <p class="text-center text-secondary scroll-reveal stagger-1" style="max-width: 800px; margin: 1rem auto 3rem;">Kami adalah perintis di industri sepatu, berkomitmen untuk menciptakan produk yang tidak hanya unggul dalam performa, tetapi juga memancarkan kemewahan abadi.</p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">
+                <div class="scroll-reveal stagger-2">
+                    <img src="favicon.png" alt="Visi Perusahaan" style="width: 100%; border-radius: var(--border-radius-xl); box-shadow: var(--shadow-large);">
+                </div>
+                <div class="scroll-reveal stagger-3">
+                    <h3 class="text-primary">Visi Kami: Mendefinisikan Ulang Sepatu Performa Mewah</h3>
+                    <p class="text-secondary">Misi kami adalah memadukan estetika desain kelas atas dengan teknologi material terkini. Setiap pasang sepatu ortuseight adalah mahakarya yang meningkatkan performa dan gaya Anda.</p>
+                </div>
+            </div>
+
+            <div class="stats-grid scroll-reveal" id="statsCounter">
+                <div class="card stat-card stagger-1">
+                    <div class="number text-primary" data-target="15">0</div>
+                    <p class="text-secondary">Tahun Pengalaman</p>
+                </div>
+                <div class="card stat-card stagger-2">
+                    <div class="number text-primary" data-target="50000">0</div>
+                    <p class="text-secondary">Produk Terjual</p>
+                </div>
+                <div class="card stat-card stagger-3">
+                    <div class="number text-primary" data-target="98">0</div>
+                    <p class="text-secondary">% Kepuasan Pelanggan</p>
+                </div>
+                <div class="card stat-card stagger-4">
+                    <div class="number text-primary" data-target="12">0</div>
+                    <p class="text-secondary">Penghargaan Desain</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="container">
+            <h2 class="text-center text-gradient scroll-reveal">Koleksi Sepatu Premium Kami</h2>
+            <p class="text-center text-secondary scroll-reveal stagger-1" style="max-width: 800px; margin: 1rem auto 3rem;">Dirancang untuk performa tertinggi dan gaya tak tertandingi. Pilih kategori yang sesuai dengan passion Anda.</p>
+            
+            <div class="grid-3">
+                <div class="service-card scroll-reveal stagger-1">
+                    <div class="icon">👟</div>
+                    <h4 class="text-primary">Running Elite</h4>
+                    <p class="text-secondary">Sepatu lari dengan bantalan responsif dan daya tahan superior. Harga: IDR 1.2M</p>
+                    <a href="#" class="btn btn-secondary" style="font-size: 0.875rem;">Detail Produk</a>
+                </div>
+                <div class="service-card scroll-reveal stagger-2">
+                    <div class="icon">⚽</div>
+                    <h4 class="text-primary">Futsal Pro</h4>
+                    <p class="text-secondary">Kontrol bola maksimal dan traksi superior untuk lapangan indoor. Fitur Utama: Teknologi Quick-Grip</p>
+                    <a href="#" class="btn btn-secondary" style="font-size: 0.875rem;">Detail Produk</a>
+                </div>
+                <div class="service-card scroll-reveal stagger-3">
+                    <div class="icon"> casual</div>
+                    <h4 class="text-primary">Casual Lifestyle</h4>
+                    <p class="text-secondary">Kenyamanan harian dengan sentuhan desain mewah dan material kulit premium. Fitur Utama: ComfortMax Insole</p>
+                    <a href="#" class="btn btn-secondary" style="font-size: 0.875rem;">Detail Produk</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" style="background-color: #f4f4f4;">
+        <div class="container">
+            <h2 class="text-center text-gradient scroll-reveal">Galeri Karya Terbaik</h2>
+            <p class="text-center text-secondary scroll-reveal stagger-1" style="max-width: 800px; margin: 1rem auto 3rem;">Sebuah tampilan koleksi visual dari produk-produk ikonik kami dalam berbagai sudut dan gaya.</p>
+
+            <div class="portfolio-grid">
+                <div class="portfolio-item scroll-reveal stagger-1">
+                    <img src="produk1.jpg" alt="Produk Lari Pro">
+                    <div class="overlay">TENAGA SURYA 1.1 X</div>
+                </div>
+                <div class="portfolio-item scroll-reveal stagger-2">
+                    <img src="produk2.jpg" alt="Produk Futsal GT">
+                    <div class="overlay">CATALYST LIBERTE V5</div>
+                </div>
+                <div class="portfolio-item scroll-reveal stagger-3">
+                    <img src="produk3.jpg" alt="Produk Lifestyle Lux">
+                    <div class="overlay">KATALIS LIBERTE V5 FG</div>
+                </div>
+                <div class="portfolio-item scroll-reveal stagger-4">
+                    <img src="produk4.jpg" alt="Produk Traction Spike">
+                    <div class="overlay">HYPERBLAST SLIP-ON</div>
+                </div>
+                <div class="portfolio-item scroll-reveal stagger-5">
+                    <img src="produk5.jpg" alt="Produk Warna Merah">
+                    <div class="overlay">JOGOSALA</div>
+                </div>
+                <div class="portfolio-item scroll-reveal stagger-6">
+                    <img src="produk6.jpg" alt="Detail Sol Sepatu">
+                    <div class="overlay">HIPERSONIK 2.0</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials">
+        <div class="parallax-bg" style="background-image: url('https://via.placeholder.com/1920x800.png?text=Parallax+Texture');"></div>
+        <div class="container" style="z-index: 2; position: relative;">
+            <h2 class="text-center text-gradient scroll-reveal">Apa Kata Mereka?</h2>
+            <p class="text-center text-secondary scroll-reveal stagger-1" style="max-width: 800px; margin: 1rem auto 3rem;">Ulasan nyata dari pelanggan yang telah merasakan performa dan kemewahan ortuseight.</p>
+
+            <div class="testimonial-wrapper scroll-reveal">
+                <div class="testimonial-card active-testimonial" data-index="0">
+                    <p>"Kenyamanan yang luar biasa! Rasanya seperti berjalan di udara, dan desainnya sangat berkelas. Benar-benar sepatu performa dengan tampilan mewah."</p>
+                    <div class="client-info">
+                        <div class="client-avatar"><img src="avatar.png" alt="Avatar Klien A"></div>
+                        <div>
+                            <p style="font-weight: var(--font-weight-semibold); margin: 0; color: var(--color-text-primary);">Ahmad rozin
+    
+                            </p>
+                            <p style="font-size: 0.875rem; margin: 0;">Pengusaha & Pelari</p>
+                            <span style="color: var(--color-accent);">⭐⭐⭐⭐⭐</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="team" style="background-color: #f4f4f4;">
+        <div class="container">
+            <h2 class="text-center text-gradient scroll-reveal">Tim Di Balik Desain</h2>
+            <p class="text-center text-secondary scroll-reveal stagger-1" style="max-width: 800px; margin: 1rem auto 3rem;">Para ahli dan visioner yang mendedikasikan diri untuk kesempurnaan ortuseight.</p>
+
+            <div class="grid-3">
+                <div class="team-card scroll-reveal stagger-1">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="team-photo"><img src="https://via.placeholder.com/100x100.png?text=JM" alt="Foto Tim 1"></div>
+                            <h4 class="text-primary">Joko Mulyono</h4>
+                            <p class="text-secondary" style="margin-bottom: 0;">Chief Design Officer</p>
+                            <div class="social-icons" style="margin-top: 1rem;">
+                                <a href="#">📘</a>
+                                <a href="#">🐦</a>
+                                <a href="#">🔗</a>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <p style="font-weight: var(--font-weight-medium);">"Mengubah performa menjadi seni. Memimpin tim dalam inovasi material dan estetika."</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-card scroll-reveal stagger-2">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="team-photo"><img src="https://via.placeholder.com/100x100.png?text=SA" alt="Foto Tim 2"></div>
+                            <h4 class="text-primary">Siti Aminah</h4>
+                            <p class="text-secondary" style="margin-bottom: 0;">Lead Material Engineer</p>
+                            <div class="social-icons" style="margin-top: 1rem;">
+                                <a href="#">📸</a>
+                                <a href="#">🔗</a>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <p style="font-weight: var(--font-weight-medium);">"Fokus pada daya tahan dan kenyamanan. Mengaplikasikan teknologi bantalan terkini."</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-card scroll-reveal stagger-3">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="team-photo"><img src="https://via.placeholder.com/100x100.png?text=RH" alt="Foto Tim 3"></div>
+                            <h4 class="text-primary">Rizky Halim</h4>
+                            <p class="text-secondary" style="margin-bottom: 0;">Marketing Strategist</p>
+                            <div class="social-icons" style="margin-top: 1rem;">
+                                <a href="#">📘</a>
+                                <a href="#">🐦</a>
+                                <a href="#">📸</a>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <p style="font-weight: var(--font-weight-medium);">"Menghubungkan produk premium kami dengan penggemar olahraga dan gaya hidup mewah."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2 class="text-center text-gradient scroll-reveal">Hubungi Kami</h2>
+            <p class="text-center text-secondary scroll-reveal stagger-1" style="max-width: 800px; margin: 1rem auto 3rem;">Jangan ragu untuk menghubungi tim kami untuk pertanyaan, kerjasama, atau pemesanan khusus.</p>
+
+            <div class="contact-grid">
+                <div class="scroll-reveal stagger-2">
+                    <form id="contactForm">
+                        <h4 class="text-primary">Kirim Pesan Cepat</h4>
+                        <div class="input-group">
+                            <input type="text" id="name" name="name" placeholder=" " required>
+                            <label for="name" class="floating-label">Nama Lengkap</label>
+                            <p class="error-message" data-input="name"></p>
+                        </div>
+                        <div class="input-group">
+                            <input type="email" id="email" name="email" placeholder=" " required>
+                            <label for="email" class="floating-label">Email Aktif</label>
+                            <p class="error-message" data-input="email"></p>
+                        </div>
+                        <div class="input-group">
+                            <textarea id="message" name="message" rows="5" placeholder=" " required></textarea>
+                            <label for="message" class="floating-label">Pesan Anda</label>
+                            <p class="error-message" data-input="message"></p>
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="submitBtn">Kirim Pesan</button>
+                        <p id="formStatus" style="margin-top: 1rem; text-align: center; font-weight: var(--font-weight-semibold);"></p>
+                    </form>
+                </div>
+                <div class="scroll-reveal stagger-3">
+                    <h4 class="text-primary">Informasi Kontak Kami</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 1rem;"><span style="color: var(--color-primary); margin-right: 0.5rem;">📍</span>Alamat: Jl. Inovasi No. 8, Jakarta, Indonesia</li>
+                        <li style="margin-bottom: 1rem;"><span style="color: var(--color-primary); margin-right: 0.5rem;">📞</span>Telepon: +62 812 3456 7890</li>
+                        <li style="margin-bottom: 1rem;"><span style="color: var(--color-primary); margin-right: 0.5rem;">📧</span>Email: info@ortuseight.com</li>
+                    </ul>
+                    
+
+    <footer id="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <a href="#hero" class="logo" style="color: var(--color-background); font-size: 1.875rem;">ortuseight<span style="color: var(--color-accent);">.</span></a>
+                    <p style="font-size: 0.875rem; margin-top: 1rem;">Langkah kemewahan dan performa tertinggi.</p>
+                    <div class="social-icons-footer" style="margin-top: 1.5rem;">
+                        <a href="#">📘</a>
+                        <a href="#">🐦</a>
+                        <a href="#">📸</a>
+                        <a href="#">🔗</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 style="font-size: 1.25rem; margin-bottom: 1rem; color: var(--color-accent);">Quick Links</h4>
+                    <ul style="list-style: none; padding: 0; font-size: 0.875rem;">
+                        <li><a href="#about" style="display: block; margin-bottom: 0.5rem;">About Us</a></li>
+                        <li><a href="#services" style="display: block; margin-bottom: 0.5rem;">Koleksi Produk</a></li>
+                        <li><a href="#portfolio" style="display: block; margin-bottom: 0.5rem;">Galeri</a></li>
+                        <li><a href="#blog" style="display: block; margin-bottom: 0.5rem;">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="font-size: 1.25rem; margin-bottom: 1rem; color: var(--color-accent);">Legal</h4>
+                    <ul style="list-style: none; padding: 0; font-size: 0.875rem;">
+                        <li><a href="#" style="display: block; margin-bottom: 0.5rem;">Syarat & Ketentuan</a></li>
+                        <li><a href="#" style="display: block; margin-bottom: 0.5rem;">Kebijakan Privasi</a></li>
+                        <li><a href="#" style="display: block; margin-bottom: 0.5rem;">Pengiriman & Retur</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="font-size: 1.25rem; margin-bottom: 1rem; color: var(--color-accent);">Kontak</h4>
+                    <p style="font-size: 0.875rem;">Email: support@ortuseight.com</p>
+                    <p style="font-size: 0.875rem;">Telepon: +62 812 3456 7890</p>
+                    <a href="#contact" class="btn btn-secondary" style="margin-top: 1rem; color: var(--color-background); border-color: var(--color-accent);">Hubungi Kami</a>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 ortuseight. All rights reserved. Designed by AI.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const body = document.getElementById('body');
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const modeIcon = document.getElementById('mode-icon');
+            const easeComplex = 'cubic-bezier(0.4, 0, 0.2, 1)'; // For consistency
+
+            // --- Dark Mode Implementation ---
+            const lightModeIcon = '<path fill="currentColor" d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zm4.814 1.765a.75.75 0 011.06 0l1.59 1.59a.75.75 0 11-1.06 1.06L15.754 5.074a.75.75 0 010-1.06zm3.371 6.985a.75.75 0 01.75.75h2.25a.75.75 0 010 1.5h-2.25a.75.75 0 01-.75-.75v-1.5zm-3.371 4.814a.75.75 0 010 1.06l-1.59 1.59a.75.75 0 11-1.06-1.06l1.59-1.59a.75.75 0 011.06 0zM12 18.75a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0v-2.25a.75.75 0 01.75-.75zm-4.814-1.765a.75.75 0 01-1.06 0l-1.59-1.59a.75.75 0 111.06-1.06l1.59 1.59a.75.75 0 010 1.06zM3.75 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H4.5a.75.75 0 01-.75-.75zm3.371-4.814a.75.75 0 010-1.06l1.59-1.59a.75.75 0 111.06 1.06L8.181 7.235a.75.75 0 01-1.06 0zM12 6.75a5.25 5.25 0 100 10.5 5.25 5.25 0 000-10.5z">';
+            const darkModeIcon = '<path fill="currentColor" d="M9.599 1.584C12.382 2.607 15 5.378 15 9.001c0 4.02-3.23 7.247-7.25 7.247-2.673 0-5.071-1.464-6.315-3.666a.75.75 0 01.996-1.127c.28-.184.629-.297 1.019-.34l.006-.002c.75-.084 1.487.054 2.158.423a4.75 4.75 0 005.158 5.762c.983-.162 1.847-.733 2.502-1.598A4.992 4.992 0 0017.5 9.001c0-2.458-1.082-4.665-2.857-6.195a.75.75 0 011.002-1.134zM16 11.25a.75.75 0 000 1.5h1.5a.75.75 0 000-1.5H16zM13.25 10a.75.75 0 000 1.5h1.5a.75.75 0 000-1.5h-1.5zM17.5 6.75a.75.75 0 000 1.5h1.5a.75.75 0 000-1.5h-1.5zM12 16a.75.75 0 000 1.5h1.5a.75.75 0 000-1.5H12zM14.75 14.5a.75.75 0 000 1.5h1.5a.75.75 0 000-1.5h-1.5zM17.5 10a.75.75 0 000 1.5h1.5a.75.75 0 000-1.5h-1.5zM12 8.5a.75.75 0 000 1.5h1.5a.75.75 0 000-1.5H12zM14.75 6a.75.75 0 000 1.5h1.5a.75.75 0 000-1.5h-1.5zM17.5 13.25a.75.75 0 000 1.5h1.5a.75.75 0 000-1.5h-1.5z"/>';
+            
+            function setDarkMode(isDark) {
+                if (isDark) {
+                    body.classList.add('dark-mode');
+                    localStorage.setItem('darkMode', 'true');
+                    modeIcon.innerHTML = darkModeIcon;
+                } else {
+                    body.classList.remove('dark-mode');
+                    localStorage.setItem('darkMode', 'false');
+                    modeIcon.innerHTML = lightModeIcon;
+                }
+            }
+
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const savedMode = localStorage.getItem('darkMode');
+            let initialMode = savedMode === 'true' || (savedMode === null && prefersDark);
+            setDarkMode(initialMode);
+
+            darkModeToggle.addEventListener('click', () => {
+                const isDark = body.classList.contains('dark-mode');
+                setDarkMode(!isDark);
+            });
+
+            // --- Scroll Reveal Animations ---
+            const scrollElements = document.querySelectorAll('.scroll-reveal');
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Use setTimeout for staggered effect on elements with 'stagger-X' classes
+                        const delayClass = Array.from(entry.target.classList).find(cls => cls.startsWith('stagger-'));
+                        const delay = delayClass ? parseInt(delayClass.split('-')[1]) * 100 : 0;
+
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                            observer.unobserve(entry.target);
+                        }, delay);
+                    }
+                });
+            }, {
+                root: null,
+                threshold: 0.15 // Start animation when 15% of element is visible
+            });
+
+            scrollElements.forEach(el => observer.observe(el));
+
+            // --- Animated Counter for About Section ---
+            const counters = document.querySelectorAll('#statsCounter .number');
+            const counterObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = parseInt(entry.target.getAttribute('data-target'));
+                        const duration = 2000; // 2 seconds
+                        let start = 0;
+                        const step = target / (duration / 10); // Calculate step size
+
+                        const animate = () => {
+                            if (start < target) {
+                                start += step;
+                                entry.target.textContent = Math.ceil(start).toLocaleString('id-ID');
+                                requestAnimationFrame(animate);
+                            } else {
+                                entry.target.textContent = target.toLocaleString('id-ID');
+                                observer.unobserve(entry.target);
+                            }
+                        };
+                        requestAnimationFrame(animate);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            counters.forEach(counter => counterObserver.observe(counter));
+
+            // --- Contact Form Validation ---
+            const contactForm = document.getElementById('contactForm');
+            const formStatus = document.getElementById('formStatus');
+            const submitBtn = document.getElementById('submitBtn');
+
+            const validateInput = (input) => {
+                const errorElement = document.querySelector(`.error-message[data-input="${input.name}"]`);
+                let isValid = true;
+                let message = '';
+
+                if (input.required && input.value.trim() === '') {
+                    isValid = false;
+                    message = 'Kolom ini wajib diisi.';
+                } else if (input.name === 'email' && input.value.trim() !== '') {
+                    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailPattern.test(input.value)) {
+                        isValid = false;
+                        message = 'Format email tidak valid.';
+                    }
+                }
+
+                errorElement.textContent = message;
+                errorElement.classList.toggle('show', !isValid);
+                return isValid;
+            };
+
+            const validateForm = () => {
+                let isFormValid = true;
+                const inputs = contactForm.querySelectorAll('input, textarea');
+                inputs.forEach(input => {
+                    if (!validateInput(input)) {
+                        isFormValid = false;
+                    }
+                });
+                return isFormValid;
+            };
+
+            contactForm.addEventListener('input', (event) => {
+                if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
+                    validateInput(event.target);
+                }
+            });
+
+            contactForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                if (validateForm()) {
+                    // Simulate form submission success
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Mengirim...';
+                    formStatus.style.color = 'var(--color-primary)';
+                    
+                    setTimeout(() => {
+                        formStatus.textContent = '✅ Pesan Berhasil Terkirim!';
+                        formStatus.style.opacity = 0;
+                        formStatus.style.transform = 'translateY(10px)';
+                        
+                        setTimeout(() => {
+                            formStatus.style.opacity = 1;
+                            formStatus.style.transform = 'translateY(0)';
+                            submitBtn.disabled = false;
+                            submitBtn.textContent = 'Kirim Pesan';
+                            contactForm.reset();
+                        }, 500);
+                        
+                    }, 1500);
+                } else {
+                    formStatus.textContent = '❌ Mohon perbaiki kesalahan dalam formulir.';
+                    formStatus.style.color = 'var(--color-primary)';
+                }
+            });
+            
+            // --- Particle Effect (Simplified) ---
+            // NOTE: Using a simple CSS-based particle approximation due to "FULLY INLINE" constraint.
+            // For a complex effect (like particles.js), the library would need to be inline or the effect heavily simplified.
+            const particlesContainer = document.getElementById('particles-js');
+            if (particlesContainer) {
+                particlesContainer.style.background = 'transparent';
+                particlesContainer.style.overflow = 'hidden';
+                particlesContainer.innerHTML = Array(50).fill().map((_, i) => 
+                    `<div style="
+                        position: absolute;
+                        width: ${Math.random() * 4 + 1}px;
+                        height: ${Math.random() * 4 + 1}px;
+                        background: radial-gradient(circle, var(--color-accent), var(--color-primary));
+                        border-radius: 50%;
+                        opacity: ${Math.random() * 0.5 + 0.2};
+                        top: ${Math.random() * 100}%;
+                        left: ${Math.random() * 100}%;
+                        animation: particle-float ${Math.random() * 10 + 5}s ease-in-out infinite alternate;
+                        transform: translate3d(0, 0, 0); /* Force hardware acceleration */
+                    "></div>`
+                ).join('');
+                
+                const particleStyle = document.createElement('style');
+                particleStyle.textContent = `
+                    @keyframes particle-float {
+                        0% { transform: translateY(0) scale(1); opacity: 0.5; }
+                        100% { transform: translateY(-20px) scale(1.2); opacity: 0.2; }
+                    }
+                `;
+                document.head.appendChild(particleStyle);
+            }
+        });
+    </script>
+</body>
+</html>
